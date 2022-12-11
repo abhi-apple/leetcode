@@ -1,0 +1,38 @@
+class Solution {
+public:
+int longestSquareStreak(vector<int>& nums) {
+        
+        sort(nums.begin(),nums.end());
+        int l=nums.size();
+        map<int,int> mp;
+        for(int i=0;i<l;i++)
+        {
+            mp[nums[i]]=1;
+        }
+        int max=0;
+        for(int i=0;i<l-1;i++)
+        {
+            bool flag=true;
+            int c=1;
+            long long int start=nums[i];
+            while(flag)
+            {
+                if(start>(INT_MAX/2))
+                    break;
+                start*=start;
+                if(mp[start]==1)
+                    c++;
+                else
+                    break;
+            }
+            if(max<c)
+                max=c;
+        }
+        if(max==1)
+            return -1;
+        return max;
+        
+    }
+
+} ;
+
