@@ -1,9 +1,11 @@
 class Solution:
     def countGoodSubstrings(self, s: str) -> int:
-        cnt=0
-        for i in range(2,len(s)):
-            if (s[i]!=s[i-1]) and (s[i]!=s[i-2]) and (s[i-1]!=s[i-2]):
-                print( s[i],s[i-1],s[i-2])
-                cnt+=1
-            
-        return cnt
+        count = 0
+
+        # Iterate through the string, looking at substrings of length 3
+        for i in range(len(s) - 2):
+            # Check if the substring has no repeated characters
+            if len(set(s[i:i+3])) == 3:
+                count += 1
+
+        return count
