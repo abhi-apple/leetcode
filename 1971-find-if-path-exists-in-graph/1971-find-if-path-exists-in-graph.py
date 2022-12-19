@@ -12,7 +12,7 @@ class Solution:
                 d[i[1]].append(i[0])
             else:
                 d[i[1]]=[i[0]]
-        print(d)
+
         q=[start]
         while q:
 
