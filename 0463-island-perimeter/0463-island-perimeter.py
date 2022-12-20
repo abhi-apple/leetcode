@@ -15,7 +15,6 @@ class Solution:
                         print(peri,"i=row")
                     if j==0 or grid[i][j-1]==0:
                         peri+=1
-                        print(peri,"j=0")
                     if j==cols-1 or grid[i][j+1]==0:
                         peri+=1
                         print(peri,j==cols-1)
