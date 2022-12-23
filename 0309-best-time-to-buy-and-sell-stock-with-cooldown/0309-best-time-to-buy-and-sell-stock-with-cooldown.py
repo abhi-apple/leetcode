@@ -11,22 +11,22 @@ class Solution:
         #         dp[i]=max(dp[i],prices[i-1]-prices[j]+dp[j-2])
         # return dp[n]
         
-        dp={}
-        def dfs(i,buyi):
-            if i>=len(prices):
+        dp = {}
+        def dfs(i, buyi):
+            if i >= len(prices):
                 return 0
             if (i, buyi) in dp:
-                return dp[(i,buyi)]
+                return dp[(i, buyi)]
             if buyi:
-                buy=dfs(i+1,not buyi)-prices[i]
-                coold=dfs(i+1,buyi)
-                dp[(i,buyi)]=max(buy,coold)
-                
+                buy = dfs(i + 1, not buyi) - prices[i]
+                coold = dfs(i + 1, buyi)
+                dp[(i, buyi)] = max(buy, coold)
             else:
-                sell=dfs(i+2,not buyi)+prices[i]
-                coold=dfs(i+1,buyi)
-                dp[(i,buyi)]=max(sell,coold)
-            return dp[(i,buyi)]
-        return dfs(0,True)
+                sell = dfs(i + 2, not buyi) + prices[i]
+                coold = dfs(i + 1, buyi)
+                dp[(i, buyi)] = max(sell, coold)
+            return dp[(i, buyi)]
+        return dfs(0, True)
+
                 
                 
