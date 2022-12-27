@@ -10,10 +10,9 @@ class Solution:
             else:
                 c+=1
         v.sort()
-        k=0
-        while ar>0 and k<len(v):
-            if v[k]<=ar:
+        res=0
+        for i in v:
+            if i<=ar:
                 c+=1
-                ar-=v[k]
-            k+=1
+                ar-=i
         return c
