@@ -5,9 +5,7 @@ class Solution:
         heapq.heapify(piles)
 
         while k > 0:
-            a=heapq.heappop(piles)
-            a=a//2
-            heapq.heappush(piles,a)
+            heapq.heappushpop(piles,piles[0]//2)
             k-=1
 
         return -sum(piles)
