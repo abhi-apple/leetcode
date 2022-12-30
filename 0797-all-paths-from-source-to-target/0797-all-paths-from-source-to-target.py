@@ -1,11 +1,13 @@
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         end=len(graph)-1
-        def dfs(node,path,output):
+        que=[(0,[0])]
+        paths=[]
+        while que:
+            node,path=que.pop(0)
             if node==end:
-                output.append(path)
-            for nx in graph[node]:
-                dfs(nx,path+[nx],output)
-        output=[]
-        dfs(0,[0],output)
-        return output
+                paths.append(path)
+            else:
+                for i in graph[node]:
+                    que.append((i,path+[i]))
+        return paths
