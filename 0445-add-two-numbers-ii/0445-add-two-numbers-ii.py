@@ -14,6 +14,6 @@ class Solution:
             l2=l2.next
         duml=dum=ListNode(0)
         for i in str(s1+s2):
-            dum.next=ListNode(i)
+            dum.next=ListNode(int(i))
             dum=dum.next
         return duml.next
