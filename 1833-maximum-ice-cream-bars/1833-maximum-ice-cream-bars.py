@@ -6,5 +6,7 @@ class Solution:
             if coins-i>=0:
                 coins-=i
                 cnt+=1
+            else:
+                break
         return cnt
                 
