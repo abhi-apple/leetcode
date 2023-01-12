@@ -6,16 +6,15 @@
 #         self.right = right
 class Solution:
     def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
-        if not root:
-            return 0
         sums=0
-        que=[root]
-        while que:
-            node=que.pop(0)
-            if node.left and not node.left.left and not node.left.right:
-                sums+=node.left.val
-            if node.left:
-                que.append(node.left)
-            if node.right:
-                que.append(node.right)
-        return sums
+        def ls(root,c):
+            if not root:
+                return 0
+            if root.left==None and root.right==None and c==True:
+                return root.val
+            lf=ls(root.left,True)
+            rt=ls(root.right,False)
+            return lf+rt
+            
+        
+        return ls(root,False)
