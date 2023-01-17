@@ -1,7 +1,8 @@
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
-        freq={}
+        nums.sort()
+        prev=-10000
         for i in nums:
-            if i in freq:
+            if prev==i:
                 return i
-            freq[i]=1
+            prev=i
