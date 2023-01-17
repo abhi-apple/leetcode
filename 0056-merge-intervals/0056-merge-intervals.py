@@ -1,16 +1,15 @@
 class Solution:
-    def merge(self, inter: List[List[int]]) -> List[List[int]]:
+    def merge(self, intr: List[List[int]]) -> List[List[int]]:
         res=[]
-        if len(inter)==0:
+        if len(intr)==0:
             return res
-        inter.sort()
-        temp=inter[0]
-        for i in inter:
-            if i[0]<=temp[1]:
-                temp[1]=max(i[1],temp[1])
+        intr.sort()
+        tem=intr[0]
+        for i in intr:
+            if tem[1]>=i[0]:
+                tem[1]=max(i[1],tem[1])
             else:
-                res.append(temp)
-                temp=i
-        res.append(temp)
+                res.append(tem)
+                tem=i
+        res.append(tem)
         return res
-            
