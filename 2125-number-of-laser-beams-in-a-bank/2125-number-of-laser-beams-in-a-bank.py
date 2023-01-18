@@ -3,8 +3,9 @@ class Solution:
         sums=0
         prev=0
         for i in bank:
-            if i.count('1')>0:
-                sums+=prev*i.count('1')
-                prev=i.count('1')
+            n=i.count('1')
+            if n>0:
+                sums+=prev*n
+                prev=n
         return sums
                 
