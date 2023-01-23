@@ -1,18 +1,15 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         ans=[]
-        ds=[]
-        fre=[False for i in range(len(nums))]
-        def f(ds,fre,ans):
-            if len(ds)==len(nums):
-                ans.append(ds.copy())
-                return 
+        def f(ind,nums,ans):
+            if ind==len(nums):
+                ds=nums.copy()
+                if ds not in ans:
+                    ans.append(ds)
+                return
             for i in range(len(nums)):
-                if not fre[i]:
-                    fre[i]=True
-                    ds.append(nums[i])
-                    f(ds,fre,ans)
-                    ds.pop()
-                    fre[i]=False
-        f(ds,fre,ans)
+                nums[i],nums[ind]=nums[ind],nums[i]
+                f(ind+1,nums,ans)
+                nums[i],nums[ind]=nums[ind],nums[i]
+        f(0,nums,ans)
         return ans
