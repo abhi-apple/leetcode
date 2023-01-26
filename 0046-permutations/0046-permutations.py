@@ -7,7 +7,7 @@ class Solution:
                 if ds not in ans:
                     ans.append(ds)
                 return
-            for i in range(len(nums)):
+            for i in range(ind,len(nums)):
                 nums[i],nums[ind]=nums[ind],nums[i]
                 f(ind+1,nums,ans)
                 nums[i],nums[ind]=nums[ind],nums[i]
