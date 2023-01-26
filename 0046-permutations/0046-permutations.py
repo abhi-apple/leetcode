@@ -3,9 +3,10 @@ class Solution:
         ans=[]
         def f(ind,nums,ans):
             if ind==len(nums):
-                ds=nums.copy()
-                if ds not in ans:
-                    ans.append(ds)
+                ans.append(nums.copy())
+                # ds=nums.copy()
+                # if ds not in ans:
+                #     ans.append(ds)
                 return
             for i in range(ind,len(nums)):
                 nums[i],nums[ind]=nums[ind],nums[i]
