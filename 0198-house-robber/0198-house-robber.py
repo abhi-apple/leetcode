@@ -1,15 +1,13 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        def f(n):
-            if n==0:
-                return nums[0]
-            if n<0:
-                return 0
-            if dp[n]!=-1:
-                return dp[n]
-            pic=nums[n]+f(n-2)
-            non=f(n-1)
-            dp[n]=max(pic,non)
-            return dp[n]
         dp=[-1 for i in range(len(nums))]
-        return f(len(nums)-1)
+        dp[0]=nums[0]
+        neg=0
+        for i in range(1,len(nums)):
+            if i>1:
+                tk=nums[i] + dp[i-2]
+            else:
+                tk=nums[i]
+            nt=dp[i-1]
+            dp[i]=max(tk,nt)
+        return dp[len(nums)-1]
