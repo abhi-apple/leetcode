@@ -1,23 +1,23 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         ans=[]
-        main=sum(nums)/2
-        if not main.is_integer():
+        k=sum(nums)/2
+        if not k.is_integer():
             return False
         n=len(nums)
+        k=int(k)
         
-        dp=[[-1 for i in range(int(main)+1)] for j in range(n)]
-        def fd(ind,k):
-            if k==0:
-                return True
-            if ind==0:
-                return nums[0]==k
-            if (dp[ind][k]!=-1):
-                return dp[ind][k]
-            nt=fd(ind-1,k)
-            tk=False
-            if(nums[ind]<=k):
-                tk=fd(ind-1,k-nums[ind])
-            dp[ind][k]=nt or tk
-            return nt or tk
-        return fd(n-1,int(main))
+        dp = [[False for _ in range(k+1)] for _ in range(n)]
+        for i in range(n):
+            dp[i][0]=True
+        if nums[0]<=k:
+            dp[0][nums[0]]=True
+        for i in range(1,n):
+            for j in range(1,k+1):
+                nk=dp[i-1][j]
+                tk=False
+                if nums[i]<=j:
+                    tk=dp[i-1][j-nums[i]]
+                dp[i][j]=nk or tk
+        return dp[n-1][k]
+        
