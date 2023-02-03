@@ -3,19 +3,18 @@
 class Solution:
     def longestCommonSubstr(self, s, t, n, m):
         # code here
-        dp=[[0 for i in range(m+1)] for j in range(n+1)]
-        for i in range(m+1):
-            dp[0][i]=0
-        for j in range(n+1):
-            dp[j][0]=0;
+        prev=[0 for i in range(m+1)]
+        cur=[0 for i in range(m+1)]
+        
         ans=0
         for i in range(1,n+1):
             for j in range(1,m+1):
                 if s[i-1]==t[j-1]:
-                    dp[i][j]=1+dp[i-1][j-1]
-                    ans=max(ans,dp[i][j])
+                    cur[j]=1+prev[j-1]
+                    ans=max(ans,cur[j])
                 else:
-                    dp[i][j]=0
+                    cur[j]=0
+            prev=cur[:]
         return ans
 
 
