@@ -4,17 +4,20 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        arr=[]
-        for i in lists:
-            p=i
-            while p is not None:
-                arr.append(p.val)
-                p=p.next
-        arr.sort()
-        link=ListNode()
-        p=link
-        for i in arr:
-            p.next=ListNode(i)
-            p=p.next
-        return link.next
+    def mergeKLists(self, nums: List[Optional[ListNode]]) -> Optional[ListNode]:
+        fin=[]
+        for i in nums:
+            while i:
+                fin.append(i.val)
+                i=i.next
+        print(fin)
+        fin.sort()
+        dum=ListNode(0)
+        prev=dum
+        for i in fin:
+            prev.next=ListNode(i)
+            prev=prev.next
+        return dum.next
+            
+            
+                
