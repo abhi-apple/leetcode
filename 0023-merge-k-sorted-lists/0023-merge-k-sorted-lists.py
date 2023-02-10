@@ -10,7 +10,6 @@ class Solution:
             while i:
                 fin.append(i.val)
                 i=i.next
-        print(fin)
         fin.sort()
         dum=ListNode(0)
         prev=dum
