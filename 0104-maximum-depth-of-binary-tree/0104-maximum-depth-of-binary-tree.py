@@ -4,31 +4,16 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution(object):
-    def maxDepth(self, root):
-        sta=[[root,1]]
-        res=0
-        while sta:
-            node,dep=sta.pop()
-            if node:
-                res=max(res,dep)
-                sta.append([node.left,dep+1])
-                sta.append([node.right,dep+1])
-        return res
-        # lev=0
-        # que=[]
-        # que.append(root)
-        # while que:
-        #     for i in range(len(que)):
-        #         node=que.pop(0)
-        #         if node.left:
-        #             que.append(node.left)
-        #         if node.right:
-        #             que.append(node.right)
-        #     lev+=1
-        # return lev
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        def res(root):
+            if root==None:
+                return 0
+            left=res(root.left)+1
+            right=res(root.right)+1
+            return max(left,right)
         
-        # if not root:
-        #     return 0
-        # return max(self.maxDepth(root.left),self.maxDepth(root.right))+1
+        
+        
+        return res(root)
         
