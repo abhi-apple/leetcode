@@ -6,18 +6,15 @@
 #         self.right = right
 class Solution:
     def minDiffInBST(self, root: Optional[TreeNode]) -> int:
-        elem=[]
-        def inor(node):
+        res = []
+        def inorder(node):
             if not node:
-                return 
-            inor(node.left)
-            elem.append(node.val)
-            inor(node.right)
-        inor(root)
-        if len(elem)==1:
-            return elem[0]
-        mini=elem[1]-elem[0]
-        for i in range(1,len(elem)):
-            dif=elem[i]-elem[i-1]
-            mini=min(dif,mini)
+                return
+            inorder(node.left)
+            res.append(node.val)
+            inorder(node.right)
+        inorder(root)
+        mini=100001
+        for i in range(1,len(res)):
+            mini=min(res[i]-res[i-1],mini)
         return mini
