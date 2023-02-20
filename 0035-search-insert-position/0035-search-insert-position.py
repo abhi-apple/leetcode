@@ -1,15 +1,15 @@
 class Solution:
     def searchInsert(self, nums: List[int], tar: int) -> int:
-        if tar in nums:
-            return nums.index(tar)
-        else:
-            for i in range(len(nums)):
-                if nums[i]>tar:
-                    return i
-            return len(nums)
             
                 
-        # i=0
-        # j=len(nums)//2
-        # while i<j:
-        #     if 
+        i=0
+        j=len(nums)-1
+        while i<=j:
+            mid=(j+i)//2
+            if nums[mid]==tar:
+                return mid
+            elif nums[mid]>tar:
+                j=mid-1
+            else:
+                i=mid+1
+        return i
