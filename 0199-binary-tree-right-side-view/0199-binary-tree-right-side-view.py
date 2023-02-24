@@ -7,15 +7,16 @@
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         res=[]
-        curr=set()
-        def fd(root,res,curr,v):
-            if not root:
-                return
-            if v not in curr:
-                curr.add(v)
-                res.append(root.val)
-            fd(root.right,res,curr,v+1)
-            fd(root.left,res,curr,v+1)
-        
-        fd(root,res,curr,0)
+        def ans(node,l):
+            nonlocal res
+            if not node:
+                return 
+            if l==len(res):
+                res.append(node.val)
+            ans(node.right,l+1)
+            ans(node.left,l+1)
+            
+            
+            
+        ans(root,0)
         return res
