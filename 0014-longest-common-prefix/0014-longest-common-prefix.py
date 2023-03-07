@@ -20,15 +20,12 @@ class Solution:
             return ""
         if len(st) == 1:
             return st[0]
+   
+        for i in range(len(st[0])):
+            for k in range(1, len(st)):
+                if i >= len(st[k]) or st[k][i] != st[0][i]:
+                    return st[0][:i]
+              
+        return st[0]
 
-        mini = min([len(s) for s in st])
-        ans = st[0][:mini]
-
-        for i in range(1, len(st)):
-            j = 0
-            while j < len(ans) and j < len(st[i]) and ans[j] == st[i][j]:
-                j += 1
-            ans = ans[:j]
-            if len(ans) == 0:
-                return ""
-        return ans
+                
