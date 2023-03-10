@@ -4,16 +4,17 @@ class Solution:
         Do not return anything, modify matrix in-place instead.
         
         """
-        zi=set()
-        zj=set()
-                
-                
+        x=set()
+        y=set()
+        
         for i in range(len(mat)):
             for j in range(len(mat[0])):
                 if mat[i][j]==0:
-                    zi.add(i)
-                    zj.add(j)
+                    x.add(i)
+                    y.add(j)
         for i in range(len(mat)):
             for j in range(len(mat[0])):
-                if i in zi or j in zj:
+                if i in x or j in y:
+    
                     mat[i][j]=0
+        
