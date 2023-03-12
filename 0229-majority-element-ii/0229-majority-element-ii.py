@@ -9,7 +9,8 @@ class Solution:
       
         res=[]
         for i in nums:
-            if dic[i]>len(nums)/3 and i not in res:
+            if dic[i]>len(nums)/3 :
                 res.append(i)
+        res=set(res)
         return res
             
