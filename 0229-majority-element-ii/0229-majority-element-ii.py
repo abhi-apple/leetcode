@@ -6,11 +6,11 @@ class Solution:
                 dic[i]+=1
             else:
                 dic[i]=1
-      
+        cnt=len(nums)/3
+        nums=set(nums)
         res=[]
         for i in nums:
-            if dic[i]>len(nums)/3 :
+            if dic[i]>cnt:
                 res.append(i)
-        res=set(res)
         return res
             
