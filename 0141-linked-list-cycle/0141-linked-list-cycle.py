@@ -7,7 +7,7 @@
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         ans=set()
-        while head and head.next:
+        while head!=None:
             if head in ans:
                 return True
             ans.add(head)
