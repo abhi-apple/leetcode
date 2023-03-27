@@ -2,13 +2,9 @@ class Solution:
     def partition(self, s: str) -> List[List[str]]:
         res=[]
         pat=[]
-        def ispa(s,st,ed):
-            while st<=ed:
-                if s[st]!=s[ed]:
-                    return False
-                st+=1
-                ed-=1
-            return True
+        def ispa(s, st, ed):
+            return s[st:ed+1] == s[st:ed+1][::-1]
+
         def fu(ind,s,pat,res):
             if ind==len(s):
                 res.append(pat.copy())
