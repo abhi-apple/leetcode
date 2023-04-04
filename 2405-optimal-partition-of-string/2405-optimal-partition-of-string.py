@@ -6,7 +6,7 @@ class Solution:
         v=""
         while r<len(s):
             if s[r] not in v:
-                v=s[l:r+1]
+                v+=s[r]
                 # print(v,"if")
                 r+=1
             else:
