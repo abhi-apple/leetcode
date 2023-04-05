@@ -2,12 +2,12 @@ class Solution:
     def findCircleNum(self, isc: List[List[int]]) -> int:
         dic = {}
         
-        def dfs(ind, maps, visi):
-            visi[ind] = 1
-            if ind in maps:
-                for i in maps[ind]:
-                    if not visi[i]:
-                        dfs(i, maps, visi)
+        def dfs(ind):
+            vis[ind] = 1
+            if ind in dic:
+                for i in dic[ind]:
+                    if not vis[i]:
+                        dfs(i)
             
         for i in range(len(isc)):
             for j in range(len(isc[0])):
@@ -25,5 +25,5 @@ class Solution:
         for i in range(len(isc)):
             if not vis[i]:
                 cnt += 1
-                dfs(i, dic, vis)
+                dfs(i)
         return cnt
