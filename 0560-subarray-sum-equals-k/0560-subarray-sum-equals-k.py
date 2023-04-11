@@ -1,12 +1,15 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        count,p,d = 0,0,{0:1}
+        cnt=0
+        d={0:1}
+        p=0
         for i in nums:
-            p+=i
+            p=p+i
             if p-k in d:
-                count+=d[p-k]
+                cnt+=d[p-k]
             if p not in d:
-                d[p] = 1
+                d[p]=1
             else:
-                d[p] +=1
-        return count
+                d[p]+=1
+        return cnt
+                
