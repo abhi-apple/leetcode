@@ -9,4 +9,4 @@ class Solution:
                 j+=1
                 if j==len(po):  # Fix the comparison to len(po) instead of len(po)-1
                     return True
-        return not st and j==len(po)  # Add a check to ensure stack is empty and all elements of po have been processed
+        return False  # Add a check to ensure stack is empty and all elements of po have been processed
