@@ -1,16 +1,20 @@
 class Solution:
     def minScore(self, n: int, roads: List[List[int]]) -> int:
-        grp=defaultdict(dict)
-        for u,v,w in roads:
-            grp[u][v]=grp[v][u]=w
-        mini=float('inf')
-        vist=set()
-        que=deque([1])
-        while que:
-            node=que.popleft()
-            for adj,sc in grp[node].items():
-                if adj not in vist:
-                    que.append(adj)
-                    vist.add(adj)
-                mini=min(mini,sc)
-        return mini
+        adj=defaultdict(list)
+        for src,dst,di in roads:
+            adj[src].append((dst,di))
+            adj[dst].append((src,di))
+        def dfs(i):
+            if i in vis:
+                return 
+            nonlocal res
+            vis.add(i)
+            for nei,dis in adj[i]:
+                res=min(res,dis)
+                dfs(nei)
+            
+            
+        vis=set()
+        res=float('inf')
+        dfs(1)
+        return res
