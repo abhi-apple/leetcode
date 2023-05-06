@@ -28,4 +28,4 @@ class Solution:
         
         nums.sort()
         backtrack(0, [])
-        return [list(x) for x in ans]
+        return ans
