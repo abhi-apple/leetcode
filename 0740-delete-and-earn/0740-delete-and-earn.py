@@ -1,17 +1,25 @@
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
-        cnt=Counter(nums)
-        nums=sorted(list(set(nums)))
-        ern1=0
-        ern2=0
-        for i in range(len(nums)):
-            cur=nums[i]*cnt[nums[i]]
-            if i>0 and nums[i]==nums[i-1]+1:
-                ern1,ern2=max(cur+ern2,ern1),ern1
-                
-                # tmp=ern1
-                # ern1=max(cur,ern2)
-                # ern2=tmp
+        cnt = Counter(nums)
+        nums = sorted(list(set(nums)))
+        memo = {}
+
+        def earn(start):
+            if start >= len(nums):
+                return 0
+
+            if start in memo:
+                return memo[start]
+
+            earn_without_current = earn(start + 1)
+
+            if start + 1 < len(nums) and nums[start] == nums[start + 1] - 1:
+                skip = nums[start] * cnt[nums[start]] + earn(start + 2)
             else:
-                ern1,ern2=cur+ern1,ern1
-        return max(ern1,ern2)
+                skip = nums[start] * cnt[nums[start]] + earn(start + 1)
+
+            result = max(earn_without_current, skip)
+            memo[start] = result
+            return result
+
+        return earn(0)
