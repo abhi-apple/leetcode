@@ -8,18 +8,23 @@ class Solution:
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
         if not root:
             return None
-        def geth(node):
+
+        def dfs(node):
             if not node:
-                return 0
-            return 1+max(geth(node.left),geth(node.right))
-        lft=geth(root.left)
-        rgt=geth(root.right)
-        if lft==rgt:
-            return root
-        else:
-            if lft>rgt:
-                return self.subtreeWithAllDeepest(root.left)
+                return 0, None
+
+            left_depth, left_subtree = dfs(node.left)
+            right_depth, right_subtree = dfs(node.right)
+
+            if left_depth > right_depth:
+                return left_depth + 1, left_subtree
+            elif left_depth < right_depth:
+                return right_depth + 1, right_subtree
             else:
-                return self.subtreeWithAllDeepest(root.right)
+                return left_depth + 1, node
+
+        result,node = dfs(root)
+        return node
+
         
         
