@@ -1,10 +1,15 @@
 class Solution:
     def minimumTotal(self, tr: List[List[int]]) -> int:
-        m = len(tr)
-        dp = [0] * (m + 1)
+        dic={}
+        def rec(r,c):
+            if r==len(tr)-1:
+                return tr[r][c]
+            if (r,c) in dic:
+                return dic[(r,c)]
+            lft=rec(r+1,c)
+            rgt=rec(r+1,c+1)
+            dic[(r,c)]=min(lft,rgt)+tr[r][c]
+            return min(lft,rgt)+tr[r][c]
         
-        for i in range(m - 1, -1, -1):
-            for j in range(i + 1):
-                dp[j] = min(dp[j], dp[j + 1]) + tr[i][j]
         
-        return dp[0]
+        return rec(0,0)
