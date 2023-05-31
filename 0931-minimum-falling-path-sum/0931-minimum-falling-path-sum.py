@@ -1,23 +1,23 @@
+from typing import List
+
 class Solution:
     def minFallingPathSum(self, mat: List[List[int]]) -> int:
-        n=len(mat)
-        prev=[0]*n
-        cur=[0]*n
-        for i in range(n):
-            prev[i]=mat[0][i]
-        for i in range(1,n):
-            for j in range(n):
-                up=mat[i][j]+prev[j]
-                ld=mat[i][j]
-                if j-1>=0:
-                    ld+=prev[j-1]
-                else:
-                    ld+=100000
-                rd=mat[i][j]
-                if j+1<n:
-                    rd+=prev[j+1]
-                else:
-                    rd+=10000
-                cur[j]=min(up,ld,rd)
-            prev,cur=cur,prev
-        return min(prev)
+        dic = {}
+        ans = []
+
+        def rec(i, j):
+            if i == 0 and j>=0 and j<len(mat[0]):
+                
+                return mat[i][j]
+            if i < 0 or j < 0 or  j>=len(mat[0]):
+                return float('inf')
+            if (i, j) in dic:
+                return dic[(i, j)]
+         
+        
+            dic[(i, j)] = mat[i][j] + min(rec(i - 1, j - 1), rec(i - 1, j), rec(i - 1, j + 1))
+            return dic[(i, j)]
+
+        for i in range(len(mat[0])):
+            ans.append(rec(len(mat) - 1, i))
+        return min(ans)
