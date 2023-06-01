@@ -6,7 +6,8 @@ class Solution:
                 dic[i]+=1
             else:
                 dic[i]=1
-        sorted_dic = sorted(dic.items(), key=lambda x: x[1], reverse=True)
-    
-        ans=[sorted_dic[i][0] for i in range(k)]
-        return ans
+        ans=sorted(dic, key=lambda x: dic[x])
+        ans=ans[::-1]
+        return ans[:k]
+        # for i in sorted(dic, key=lambda x: dic[x])[::-1]:
+        
