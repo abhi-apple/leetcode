@@ -12,7 +12,6 @@ class Solution:
             else:
                 tk=rec(i-1,j)
                 bt=rec(i,j-1)
-                nt=rec(i-1,j-1)
-                dp[(i,j)]=max(tk,bt,nt)
+                dp[(i,j)]=max(tk,bt)
                 return dp[(i,j)]
         return rec(len(s1)-1,len(s2)-1)
