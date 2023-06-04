@@ -1,13 +1,23 @@
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        output = []
-        for start, end in intervals:
-            if start > newInterval[1]:
-                output.append(newInterval)
-                newInterval = [start, end]
-            elif end < newInterval[0]:
-                output.append([start, end])
+    def insert(self, inte: List[List[int]], ne: List[int]) -> List[List[int]]:
+        ans=[]
+        ad=True
+        if not inte:
+            return [ne]
+        for i in inte:
+            if i[0]>ne[0] and ad:
+                ad=False
+                ans.append(ne)
+            ans.append(i)
+        if ad:
+            ans.append(ne)
+        inte=[]
+        pre=ans[0]
+        for i in ans[1:]:
+            if pre[1]>=i[0]:
+                pre[1]=max(pre[1],i[1])
             else:
-                newInterval = [min(start, newInterval[0]), max(end, newInterval[1])]
-        output.append(newInterval)
-        return output
+                inte.append(pre)
+                pre=i
+        inte.append(pre)
+        return inte
