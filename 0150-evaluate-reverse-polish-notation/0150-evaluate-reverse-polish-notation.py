@@ -1,35 +1,31 @@
+import math
+
 class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
-        stack=[]
-        print(6/-132)
-        fir=0
-        sec=0
-        if len(tokens)==1:
-            return int(tokens[0])
-        for i in tokens:
-            if (i.strip('-')).isnumeric():
-                stack.append(int(i))
+    def evalRPN(self, tok: List[str]) -> int:
+        st = []
+        var = ['+', '-', '*', '/']
+        
+        for i in tok:
+            if i in var:
+                fir = int(st.pop())
+                sec = int(st.pop())
+                
+                if i == '+':
+                    ans = sec + fir
+                elif i == '-':
+                    ans = sec - fir
+                elif i == '*':
+                    ans = sec * fir
+                elif i == '/':
+                    if sec < 0 and fir < 0:
+                        ans = (abs(sec) // abs(fir))
+                    elif sec < 0 or fir < 0:
+                        ans = -(abs(sec) // abs(fir))
+                    else:
+                        ans = (abs(sec) // abs(fir))
+                
+                st.append(str(ans))
             else:
-                fir=int(stack.pop())
-                sec=int(stack.pop())
-                print(i,"char")
-                if ord(i)==43:
-                    fir=fir+sec
-                    stack.append(fir)
-                    print(fir,"add")
-                if ord(i)==45:
-                    fir=sec-fir
-                    stack.append(fir)
-                    print(fir,"sub")
-                if ord(i)==42:
-                    fir=fir*sec
-                    stack.append(fir)
-                    print(fir,"MUL")
-                if ord(i)==47:
-                    print(sec,fir)
-                    fir=sec/fir
-                    stack.append(fir)
-                    print(fir,"di")
-                
-        return int(fir)
-                
+                st.append(i)
+        
+        return int(st[0])
