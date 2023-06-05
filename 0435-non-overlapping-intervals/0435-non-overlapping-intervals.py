@@ -18,20 +18,16 @@
 #         return n-rec(0,-1)
 class Solution:
     def eraseOverlapIntervals(self, inte: List[List[int]]) -> int:
-        inte.sort(key=lambda x: x[0])
+        inte.sort(key=lambda x: x[1])
 
         n = len(inte)
         if n <= 1:
             return 0
 
-        count = 0
+        cnt = 1
         end = inte[0][1]  # Initialize the end with the end time of the first interval
-
-        for i in range(1, n):
-            if inte[i][0] < end:  # Overlapping interval found
-                count += 1
-                end = min(end, inte[i][1])  # Update the end time to the minimum of the current and previous interval
-            else:
-                end = inte[i][1]  # No overlap, update the end time with the current interval
-
-        return count
+        for i in inte[1:]:
+            if i[0]>=end:
+                cnt+=1
+                end=i[1]
+        return n-cnt
