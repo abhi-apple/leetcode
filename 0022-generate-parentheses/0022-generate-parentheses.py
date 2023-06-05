@@ -10,7 +10,7 @@ class Solution:
                 return dp[(op,cl,cur)]
             if op<n:
                 rec(op+1,cl,cur+'(')
-            if cl<n and op>=cl+1:
+            if cl<op:
                 rec(op,cl+1,cur+')')
             dp[(op, cl, cur)] = True
         rec(0,0,'')
