@@ -1,23 +1,20 @@
 class Solution:
-    def solve(self, start_stick, end_stick, cuts, left, right, dp):
-        if left > right:
-            return 0
-
-        if dp[left][right] != -1:
-            return dp[left][right]
-
-        cost = float('inf')
-
-        for i in range(left, right + 1):
-            left_cost = self.solve(start_stick, cuts[i], cuts, left, i - 1, dp)
-            right_cost = self.solve(cuts[i], end_stick, cuts, i + 1, right, dp)
-            curr_cost = (end_stick - start_stick) + left_cost + right_cost
-            cost = min(cost, curr_cost)
-
-        dp[left][right] = cost
-        return cost
-
-    def minCost(self, n, cuts):
-        dp = [[-1] * len(cuts) for _ in range(len(cuts))]
+    def minCost(self, n: int, cuts: List[int]) -> int:
+        cuts=[0]+cuts
+        cuts.append(n)
         cuts.sort()
-        return self.solve(0, n, cuts, 0, len(cuts) - 1, dp)
+        dp={}
+        def rec(i,j):
+       
+            if i>j:
+                return 0
+            if (i,j) in dp:
+                return dp[(i,j)]
+            mini=float('inf')
+            for k in range(i,j+1):
+                val=(cuts[j+1]-cuts[i-1]) + rec(i,k-1)+rec(k+1,j)
+                mini=min(val,mini)
+            dp[(i,j)]=mini
+            return dp[(i,j)]
+        
+        return rec(1,len(cuts)-2)
