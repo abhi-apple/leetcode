@@ -1,35 +1,17 @@
+from typing import List
+
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        res=[]
-        pat=[]
-        def ispa(st,ed):
-            return s[st:ed+1]==s[st:ed+1][::-1]
-        def rec(ind):
-            if ind==len(s):
-                res.append(pat.copy())
-            for i in range(ind,len(s)):
-                if ispa(ind,i):
-                    pat.append(s[ind:i+1])
-                    rec(i+1)
-                    pat.pop()
-                    
-        rec(0)
-        return res
-#         res=[]
-#         pat=[]
-#         def ispa(s, st, ed):
-#             return s[st:ed+1] == s[st:ed+1][::-1]
-
-#         def fu(ind,s,pat,res):
-#             if ind==len(s):
-#                 res.append(pat.copy())
-#                 return
-#             for i in range(ind,len(s)):
-#                 if ispa(s,ind,i):
-#                     pat.append(s[ind:i+1])
-#                     fu(i+1,s,pat,res)
-#                     pat.pop()
+        fin = []
         
-                
-#         fu(0,s,pat,res)
-#         return res
+        def rec(i, cur):
+            if i == len(s):
+                fin.append(cur)
+                return
+            
+            for k in range(i, len(s)):
+                if s[i:k+1] == s[i:k+1][::-1]:
+                    rec(k + 1, cur + [s[i:k+1]])
+        
+        rec(0, [])
+        return fin
