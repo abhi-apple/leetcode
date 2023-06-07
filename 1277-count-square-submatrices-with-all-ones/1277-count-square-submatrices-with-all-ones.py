@@ -11,10 +11,11 @@ class Solution:
             if (i, j) in dp:
                 return dp[(i, j)]
             dp[(i, j)] = 0
-            dwn = rec(i+1, j)
-            rgt = rec(i, j+1)
-            dig = rec(i+1, j+1)
             if matrix[i][j] == 1:
+                dwn = rec(i+1, j)
+                rgt = rec(i, j+1)
+                dig = rec(i+1, j+1)
+            
                 dp[(i, j)] = min(dwn, rgt, dig) + 1
             return dp[(i, j)]
         
