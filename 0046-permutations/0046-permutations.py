@@ -1,16 +1,17 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        ans=[]
-        def f(ind,nums,ans):
-            if ind==len(nums):
-                ans.append(nums.copy())
-                # ds=nums.copy()
-                # if ds not in ans:
-                #     ans.append(ds)
+        def backtrack(arr):
+            if len(arr) == len(nums):
+                ans.append(arr[:])
                 return
-            for i in range(ind,len(nums)):
-                nums[i],nums[ind]=nums[ind],nums[i]
-                f(ind+1,nums,ans)
-                nums[i],nums[ind]=nums[ind],nums[i]
-        f(0,nums,ans)
+            for num in nums:
+                
+                if num not in arr:
+                    backtrack(arr+[num])
+                    # arr.append(num)
+                    # backtrack(arr)
+                    # arr.pop()
+
+        ans = []
+        backtrack([])
         return ans
