@@ -1,21 +1,13 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-        dp = {}  # Memoization dictionary to store calculated results
-        
-        def rec(i):
-            if i >= len(nums) - 1:
-                return 0  # Already at the last index, no need to jump
-            
-            if i in dp:
-                return dp[i]
-            
-            res = float('inf')  # Initialize result with infinity
-            
-            for j in range(1, nums[i] + 1):
-                if i + j < len(nums):
-                    res = min(res, 1 + rec(i + j))  # Calculate minimum jumps recursively
-            
-            dp[i] = res  # Store the result in memoization dictionary
-            return dp[i]
-        
-        return rec(0)
+        res=0
+        i=0
+        j=0
+        while j<len(nums)-1:
+            far=0
+            for k in range(i,j+1):
+                far=max(far,k+nums[k])
+            i=j+1
+            j=far
+            res+=1
+        return res
