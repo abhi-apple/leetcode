@@ -4,25 +4,24 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
+
 class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        if root == None or root == p or root == q:
-            return root
+    def lowestCommonAncestor(self, root: 'TreeNode', B: 'TreeNode', A: 'TreeNode') -> 'TreeNode':
         
-        l = self.lowestCommonAncestor(root.left, p, q)
-		
-        r = self.lowestCommonAncestor(root.right, p, q)
+        def dfs(node, arr,com):
+            if not node:
+                return None
+            if node == com:
+                return arr + [com]
+            left_result = dfs(node.left, arr + [node],com)
+            right_result = dfs(node.right, arr + [node],com)
+            return left_result or right_result
         
-        if l and r:
-            return root
+        ans=dfs(root, [],A)
         
-        return l if l else r
-
-
-#         i=0
-#         while True:
-#             if arr1[i]!=arr2[i]:
-#                 break
-            
-#         return arr1[i-1]
-        
+        res=dfs(root,[],B) 
+        # print(ans,res)
+        for i in range(min(len(ans),len(res))-1,-1,-1):
+            if ans[i]==res[i]:
+                return ans[i]
+        return ans[0]
