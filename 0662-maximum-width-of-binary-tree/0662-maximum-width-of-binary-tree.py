@@ -8,26 +8,26 @@ class Solution:
     def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
-        ans=0
-        q=[]
-        q.append([root,0])
-        while q:
-            n=len(q)
-            mini=q[0][1]
-            las,fir=0,0
-            for i in range(n):
-                curid=q[0][1]-mini
-                node=q[0][0]
-                q.pop(0)
-                if i==0:
-                    fir=curid
-                if i==n-1:
-                    las=curid
-                    
+        
+        max_width = 0
+        queue = deque([(root, 0)])  # Store (node, index) tuples in the queue
+        
+        while queue:
+            
+            level_size = len(queue)
+            _, start_index = queue[0]  # Leftmost node index at current level
+            _, end_index = queue[-1]  # Rightmost node index at current level
+
+            max_width = max(max_width, end_index - start_index + 1)
+            
+            for _ in range(level_size):
+                
+                node, index = queue.popleft()
                 if node.left:
-                    q.append([node.left,2*curid +1])
+                    queue.append((node.left, 2 * index))
+                
                 if node.right:
-                    q.append([node.right,2*curid +2])
-                    
-            ans=max(ans,las-fir+1)
-        return ans
+                    queue.append((node.right, 2 * index + 1))
+        
+        return max_width
+            
