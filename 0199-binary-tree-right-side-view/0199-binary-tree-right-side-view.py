@@ -6,27 +6,23 @@
 #         self.right = right
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-        res=[]
-        def bfs(root):
-            if not root:
-                return []
-            que=[root]
-            while que:
-                levs=len(que)
-                cur=[]
-                for i in range(levs):
-                    node=que.pop(0)
-                    cur.append(node.val)
-                    if node.left:
-                        que.append(node.left)
-                    if node.right:
-                        que.append(node.right)
-           
-                res.append(cur[-1])
-     
+        if not root:
+            return []
+        nodes = {}
+        deq = deque([(root, 0)])  # Store (node, val) tuples in the deque
+        
+        while deq:
+            node, val = deq.popleft()
+            
+
+            nodes[val] = node.val
+            
+            if node.left:
+                deq.append((node.left, val + 1))  # Append (node, val) tuple to the deque
+            if node.right:
+                deq.append((node.right, val + 1))  # Append (node, val) tuple to the deque
+        
+        return [nodes[i] for i in sorted(nodes)]
                 
-            return res
- 
-        return bfs(root)
-                
+            
                 
