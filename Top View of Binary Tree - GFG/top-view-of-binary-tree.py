@@ -9,11 +9,12 @@
 
 from collections import deque
 
+from collections import deque
+
 class Solution:
     def topView(self, root):
         nodes = {}
         deq = deque([(root, 0)])  # Store (node, val) tuples in the deque
-        res = []
         
         while deq:
             node, val = deq.popleft()
@@ -26,10 +27,7 @@ class Solution:
             if node.right:
                 deq.append((node.right, val + 1))  # Append (node, val) tuple to the deque
         
-        for i in sorted(nodes):
-            res.append(nodes[i])
-        
-        return res
+        return [nodes[i] for i in sorted(nodes)]
 
         
         
