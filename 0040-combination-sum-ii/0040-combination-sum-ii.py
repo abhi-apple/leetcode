@@ -1,20 +1,21 @@
 class Solution:
     def combinationSum2(self, cd: List[int], tar: int) -> List[List[int]]:
         cd.sort()
-        res = set()
-        
-        def dfs(i, ar, t):
-            if t == tar:
-                res.add(tuple(ar))
-                return
-            for j in range(i,len(cd)):
-                if j>i and cd[j]==cd[j-1]:
+        fin=[]
+        def rec(i,arr,sums):
+            if sums==0:
+                arr.sort()
+                if arr not in fin:
+                    
+                    fin.append(arr)
+                    return 
+            if i==len(cd):
+                return 
+            for k in range(i,len(cd)):
+                if k>i and cd[i]==cd[i-1]:
                     continue
-                if t + cd[j] > tar:
+                if sums-cd[k]<0:
                     break
-                ar.append(cd[j])
-                dfs(j+1, ar, t+cd[j])
-                ar.pop()
-        
-        dfs(0, [], 0)
-        return res
+                rec(k+1,arr+[cd[k]],sums-cd[k])
+        rec(0,[],tar)
+        return fin
