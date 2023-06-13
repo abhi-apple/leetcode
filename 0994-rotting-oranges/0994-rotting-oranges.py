@@ -1,35 +1,38 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        n=len(grid)
-        m=len(grid[0])
-        que=[]
-        vis=[[0 for i in range(m)] for j in range(n)]
-        time =0
-        for i in range(n):
-            for j in range(m):
-                if grid[i][j]==2:
-                    que.append([i,j,0])
-                    vis[i][j]=2
-                else:
-                    vis[i][j]=0
-        dow=[-1,0,1,0]
-        col=[0,1,0,-1]
-        
-        while que:
+        vis=set()
+        maxi=0
+        que=deque()
+        def bfs(i,j):
+            nonlocal que
+            cnt=0
+            vis.add((i,j))
             
-            r,q,t=que.pop(0)
-            time=max(time,t)
-            for i in range(4):
-                nr=r+dow[i]
-                nc=q+col[i]
-                if nr>=0 and nr<n and nc>=0 and nc<m and vis[nr][nc]!=2 and grid[nr][nc]==1:
-                    que.append([nr,nc,t+1])
-                    vis[nr][nc]=2
-        for i in range(n):
-            for j in range(m):
-                if vis[i][j]!=2 and grid[i][j]==1:
+            while que:
+                size = len(que)  # Number of oranges at the current level (minute)
+                for _ in range(size):
+                    i, j = que.popleft()
+                    directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+                    for d in directions:
+                        ix, jx = i + d[0], j + d[1]
+                        if (ix, jx) not in vis and 0 <= ix < len(grid) and 0 <= jx < len(grid[0]) and grid[ix][jx] == 1:
+                            vis.add((ix, jx))
+                            que.append((ix, jx))
+                            grid[ix][jx] = 2
+                if que:  # Increment minutes if there are more oranges at the next level
+                    cnt += 1
+            return cnt
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                 if grid[i][j]==2:
+                        que.append([i,j])
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j]==2 and (i,j) not in vis:
+                    maxi=max(bfs(i,j),maxi)
+                        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j]==1:
                     return -1
-        return time
-        
-            
-            
+        return maxi
