@@ -1,29 +1,38 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        def dfs(node):
-            vis[node]=1
-            patvis[node]=1
-            check[node]=0
-            for i in (graph[node]):
-                if not vis[i]:
-                    if dfs(i):
-                        check[node]=0
-                        return True
-                elif patvis[i]:
-                    check[node]=0
-                    return True
-            check[node]=1
-            patvis[node]=0
-            return False
-        v=len(graph)
-        vis=[0 for i in range(v)]
-        patvis=[0 for i in range(v)]
-        check=[0 for i in range(v)]
-        safe=[]
-        for i in range(v):
-            if not vis[i]:
-                dfs(i)
-        for i in range(v):
-            if check[i]==1:
-                safe.append(i)
-        return safe
+        ans = []
+        dic = {}
+        for i in range(len(graph)):
+            dic[i] = []
+            for k in graph[i]:
+                dic[i].append(k)
+            if dic[i] == []:
+                ans.append(i)
+        
+        def dfs(node, st, vis, memo):
+            if node in vis:
+                return False
+            if node in memo:
+                return memo[node]
+
+            vis.add(node)
+            for var in dic[node]:
+                if not dfs(var, st, vis, memo):
+                    memo[node] = False
+                    return False
+
+            vis.remove(node)
+            memo[node] = True
+            return True
+
+        vis = set()
+        memo = {}
+        for i in dic:
+            if dic[i] != []:
+                st = i
+                if i not in vis and dfs(i, st, vis, memo):
+                    ans.append(i)
+
+        return sorted(ans)
+
+                
