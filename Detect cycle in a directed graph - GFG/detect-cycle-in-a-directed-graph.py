@@ -1,29 +1,63 @@
 #User function Template for python3
 
 
-class Solution:
+# class Solution:
     
-    #Function to detect cycle in a directed graph.
-    def isCyclic(self, v, adj):
-        def dfs(node):
-            vis[node]=1
-            patvis[node]=1
-            for i in adj[node]:
-                if not vis[i]:
-                    if dfs(i):
-                        return True
-                elif (patvis[i]):
-                    return True
-            patvis[node]=0
+#     #Function to detect cycle in a directed graph.
+#     def isCyclic(self, V, adj):
+#         def dfs(node):
+#             nonlocal vis
+#             if  node in vis:
+#                 return True
+#             for var in adj[node]:
+#                 if var not in vis:
+#                     vis.add(var)
+#                     if dfs(var):
+#                         return True
+#                 else:
+#                     return True
+#             return False
+#         for k in adj:
+#             vis=set()
+#             if dfs(k):
+#                 return True
+#         return False
+
+
+        
+
+from collections import deque
+
+class Solution:
+    # Function to detect cycle in a directed graph.
+    def isCyclic(self, V, adj):
+        indegree = [0] * V
+        for i in range(V):
+            for k in adj[i]:
+                indegree[k] += 1
+        
+        queue = deque()
+        for i in range(V):
+            if indegree[i] == 0:
+                queue.append(i)
+        
+        cnt = 0
+        while queue:
+            node = queue.popleft()
+            cnt += 1
+            
+            for neighbor in adj[node]:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    queue.append(neighbor)
+        
+        if cnt == V:
             return False
-        # code here
-        vis=[0 for i in range(v)]
-        patvis=[0 for i in range(v)]
-        for i in range(v):
-            if not vis[i]:
-                if dfs(i):
-                    return True
-        return False
+        return True
+
+
+
+
 
 
 #{ 
