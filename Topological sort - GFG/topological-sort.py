@@ -1,21 +1,34 @@
 class Solution:
     
     #Function to return list containing vertices in Topological order.
-    def topoSort(self, v, adj):
+    def topoSort(self, V, adj):
         # Code here
-        vis=[0 for i in range(v)]
-        st=[]
+        dic={}
+        ans=[]
+        for i in range(V):
+            dic[i]=[]
+            for k in adj[i]:
+                dic[i].append(k)
         def dfs(node):
-            vis[node]=1
-            for i in adj[node]:
-                if not vis[i]:
-                    dfs(i)
-            st.append(node)
-        for i in range(v):
-            if not vis[i]:
+            nonlocal ans
+            vis.add(node)
+            for var in adj[node]:
+                if var not in vis:
+                    dfs(var)
+            ans.append(node)
+        vis=set()
+        for i in dic:
+            if i not in vis:
                 dfs(i)
-        return st[::-1]
+                
+            
+        return ans[::-1]
 
+        # for 
+        # def dfs(node):
+        #     vis.add(node)
+        #     for var in 
+            
 
 
 #{ 
