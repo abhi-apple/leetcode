@@ -1,22 +1,46 @@
+
+
+from typing import List
+
 class Solution:
-    def canFinish(self, numCourses: int, prer: List[List[int]]) -> bool:
-        maps={i:[] for i in range(numCourses)}
-        for crs,pre in prer:
-            maps[crs].append(pre)
-        vis=set()
-        def dfs(crs):
-            if crs in vis:
-                return False
-            if maps[crs]==[]:
+    def canFinish(self, numc: int, pre: List[List[int]]) -> bool:
+        adj={}
+        for k in pre:
+            i,j=k
+            if i in adj:
+                adj[i].append(j)
+            else:
+                adj[i]=[j]
+        for i in range(numc):
+            if i not in adj:
+                adj[i]=[]
+        print(adj)
+        def dfs(node):
+            vis.add(node)
+            if adj[node]!=[]:
+                st.add(node)
+            if adj[node]==[]:
                 return True
-            vis.add(crs)
-            for pre in maps[crs]:
-                if not dfs(pre):
+            
+            for neighbor in adj[node]:
+                if neighbor in st:
                     return False
-            vis.remove(crs)
-            maps[crs]=[]
+                if neighbor not in vis:
+                    if not dfs(neighbor):
+                        return False
+                    
+            st.remove(node)
+            adj[node]=[]
             return True
-        for crs in range(numCourses):
-            if not dfs(crs):
-                return False
+        vis=set()
+        for k in adj:
+            if adj[k]!=[]:
+                
+                st=set()
+                if k not in vis:
+                    if not dfs(k):
+                        return False
+        
         return True
+                    
+      
