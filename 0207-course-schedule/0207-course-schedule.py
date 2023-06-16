@@ -3,44 +3,28 @@
 from typing import List
 
 class Solution:
-    def canFinish(self, numc: int, pre: List[List[int]]) -> bool:
-        adj={}
-        for k in pre:
-            i,j=k
-            if i in adj:
-                adj[i].append(j)
-            else:
-                adj[i]=[j]
-        for i in range(numc):
-            if i not in adj:
-                adj[i]=[]
-        print(adj)
-        def dfs(node):
-            vis.add(node)
-            if adj[node]!=[]:
-                st.add(node)
-            if adj[node]==[]:
-                return True
-            
-            for neighbor in adj[node]:
-                if neighbor in st:
-                    return False
-                if neighbor not in vis:
-                    if not dfs(neighbor):
-                        return False
+    def canFinish(self, numCourses: int, pre: List[List[int]]) -> bool:
+        adj = [[] for _ in range(numCourses)]
+        indegree = [0] * numCourses
+
+        for it in pre:
+            adj[it[1]].append(it[0])
+            indegree[it[0]] += 1
+        que=deque()
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                que.append(i)
                     
-            st.remove(node)
-            adj[node]=[]
+        top=0
+        while que:
+            node=que.popleft()
+            top+=1
+            for it in adj[node]:
+                indegree[it]-=1
+                if indegree[it]==0:
+                    que.append(it)
+        print(top)
+        if top==numCourses:
             return True
-        vis=set()
-        for k in adj:
-            if adj[k]!=[]:
-                
-                st=set()
-                if k not in vis:
-                    if not dfs(k):
-                        return False
-        
-        return True
-                    
+        return False
       
