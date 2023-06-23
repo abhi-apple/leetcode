@@ -1,6 +1,6 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        ans = []
+        ans = set()
         nums.sort()
         for i in range(len(nums)):
             val = -nums[i]
@@ -8,8 +8,8 @@ class Solution:
             j = len(nums) - 1
             while k < j:
                 if nums[k] + nums[j] == val:
-                    if [nums[i], nums[k], nums[j]] not in ans:
-                        ans.append([nums[i], nums[k], nums[j]])
+ 
+                    ans.add(tuple([nums[i], nums[k], nums[j]]))
                     k += 1
                     j -= 1
                 elif nums[k] + nums[j] > val:
