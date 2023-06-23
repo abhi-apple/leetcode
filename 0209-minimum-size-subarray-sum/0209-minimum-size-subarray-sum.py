@@ -1,40 +1,45 @@
 class Solution:
-    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        r = 0
-        l = 0
-        sums = 0
-        min_len = float('inf')  # Initialize min_len to infinity
-        
-        while r < len(nums):
-            sums += nums[r]  # Add nums[r] to the sum
-            r += 1  # Increment r
-            while sums >= target:  # If the sum is greater than or equal to the target, update min_len
-                min_len = min(min_len, r - l)  # Update min_len
-                sums -= nums[l]  # Subtract nums[l] from the sum
-                l += 1  # Increment l
-                
-        if min_len == float('inf'):  # If min_len is still infinity, return 0
+    def minSubArrayLen(self, tar: int, nums: List[int]) -> int:
+        sums=sum(nums)
+        if sums< tar:
             return 0
-        return min_len 
-        # r=0
-        # l=0
-        # if sum(nums)<target:
-        #     return 0
-        # if sum(nums)==target:
-        #     return 1
-        # sums=0
-        # while target>sums and r<len(nums):
-        #     sums+=nums[r]
-        #     r+=1
-        # maxi=r-l
-        # while r<len(nums):
-        #     if sums>=target:
-        #         maxi=min(maxi,r-l)
-        #         l+=1
-        #         sums-=nums[l]
-        #     elif sums<target:
-        #         r+=1
-        #         if r<len(nums):
-        #             sums+=nums[r]
-        # return maxi
+        n = len(nums)
+        if sums == tar:
+            return n
+        
+        sums = 0
+        j = 0
+        while sums <tar:
+            sums += nums[j]
+            j += 1
+
+            
+        
+        maxi = float('inf')
+        i = 0
+        while j < n+1:
+            
+            if sums >= tar:
+        
+                maxi = min(maxi, j - i )
                 
+                sums -= nums[i]
+                i += 1
+            else:
+                if j<n:
+                    
+                    sums += nums[j]
+                j += 1
+#                 if j < n - 1:
+                 
+#                     j += 1
+                    
+#                     print(j,sums)
+#                 else:
+                    
+#                     print('hi')
+#                     break
+        return maxi
+
+                
+        
