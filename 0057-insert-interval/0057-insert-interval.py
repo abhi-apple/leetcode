@@ -1,16 +1,19 @@
 class Solution:
-    def insert(self, inte: List[List[int]], ne: List[int]) -> List[List[int]]:
-        ans=[]
-        ad=True
-        if not inte:
+    def insert(self, ans: List[List[int]], ne: List[int]) -> List[List[int]]:
+        
+        # ad=True
+        if not ans:
             return [ne]
-        for i in inte:
-            if i[0]>ne[0] and ad:
-                ad=False
-                ans.append(ne)
-            ans.append(i)
-        if ad:
-            ans.append(ne)
+        ans.append(ne)
+        ans.sort()
+        # for i in inte:
+        #     if i[0]>ne[0] and ad:
+        #         ad=False
+        #         ans.append(ne)
+        #     ans.append(i)
+        # if ad:
+        #     ans.append(ne)
+        
         inte=[]
         pre=ans[0]
         for i in ans[1:]:
