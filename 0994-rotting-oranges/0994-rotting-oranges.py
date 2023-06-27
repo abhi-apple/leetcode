@@ -1,7 +1,7 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         vis=set()
-        maxi=0
+   
         que=deque()
         def bfs(i,j):
             nonlocal que
@@ -26,13 +26,20 @@ class Solution:
             for j in range(len(grid[0])):
                  if grid[i][j]==2:
                         que.append([i,j])
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if grid[i][j]==2 and (i,j) not in vis:
-                    maxi=max(bfs(i,j),maxi)
+        if not que:
+            for i in range(len(grid)):
+                for j in range(len(grid[0])):
+                    if grid[i][j]==1:
+                        return -1
+            return 0
+        i,j=que[0]
+        ans=bfs(i,j)
+        print(ans)
+    
+                    
                         
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j]==1:
                     return -1
-        return maxi
+        return ans
