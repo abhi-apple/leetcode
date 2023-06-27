@@ -1,14 +1,20 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
-        res=max(nums)
-        curmax,curmin=1,1
-        for n in nums:
-            if n==0:
-                curmax,curmin=1,1
-                continue
-            tmp=curmax
-            curmax=max(n*curmax,n*curmin,n)
-            curmin=min(n*curmin,n*tmp,n)
-            res=max(res,curmax)
-        return res
-                
+        n=len(nums)
+        maxi=-float('inf')
+        if n==1:
+            return nums[0]
+        @cache
+        def rec(i,prod):
+            nonlocal maxi
+            if i==n:
+                maxi=max(maxi,prod)
+                return prod
+            
+            pk=rec(i+1,prod*nums[i])
+            maxi=max(maxi,prod)
+            return pk
+        for i in range(n):
+            rec(i+1,nums[i])
+        
+        return maxi
