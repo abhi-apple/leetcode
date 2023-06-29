@@ -1,13 +1,20 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
-        dic={}
+        ans=0
         for i in nums:
-            if i in dic:
-                dic[i]+=1
+            ans=ans^i
+        cnt=0
+        while ans:
+            if ans&1:
+                break
+            cnt+=1
+            ans=ans>>1
+        x1=0
+        x2=0
+        for i in nums:
+            if i&(1<<cnt):
+                x1=x1^i
             else:
-                dic[i]=1
-        ans=[]
-        for i in nums:
-            if dic[i]==1:
-                ans.append(i)
-        return ans
+                x2=x2^i
+        return [x1,x2]
+                
