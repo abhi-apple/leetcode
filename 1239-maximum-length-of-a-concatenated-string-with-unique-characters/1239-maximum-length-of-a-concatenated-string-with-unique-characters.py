@@ -1,14 +1,18 @@
+from typing import List
+
 class Solution:
     def maxLength(self, arr: List[str]) -> int:
-        maxi=0
-        def rec(ind,cur):
-            if ind==len(arr):
-                return len(cur)
-            maxi=len(cur)
-            for i in range(ind,len(arr)):
-                if len(set(cur+arr[i]))==len(cur+arr[i]):
-                    maxi=max(maxi,rec(i+1,cur+arr[i]))
-            maxi=max(maxi,rec(ind+1,cur))
-            return maxi
-                             
-        return rec(0,'')
+        maxi = 0
+        
+        def rec(i, st):
+            nonlocal maxi
+            if i == len(arr):
+                maxi = max(maxi, len(st))
+                return 
+            
+            rec(i + 1, st)
+            if len(set(st + arr[i])) == len(st + arr[i]):
+                rec(i + 1, st + arr[i])
+
+        rec(0, '')
+        return maxi
