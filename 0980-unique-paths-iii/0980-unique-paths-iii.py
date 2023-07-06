@@ -1,25 +1,37 @@
 class Solution:
     def uniquePathsIII(self, grid: List[List[int]]) -> int:
-        def dfs(grid,x,y,ze):
-            if x<0 or y<0 or x>=len(grid) or y>=len(grid[0]) or grid[x][y]==-1:
-                return 0
-            if grid[x][y]==2:
-                return 1 if ze==-1 else 0
-            grid[x][y]=-1
-            ze-=1
-            totp=dfs(grid,x+1,y,ze)+dfs(grid,x,y+1,ze)+dfs(grid,x+-1,y,ze)+dfs(grid,x,y-1,ze)
-            grid[x][y]=0
-            ze+=1
-            return totp
-        zero=0
-        sx=0
-        sy=0
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
-                if grid[r][c]==0:
-                    zero+=1
-                elif grid[r][c]==1:
-                    sx=r
-                    sy=c
-        return dfs(grid,sx,sy,zero)
-    
+        zeros = 0
+        ans=0
+        def backtrack(i, j, count):
+            nonlocal ans
+            grid[i][j]=3
+      
+
+            directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+            total_paths = 0
+
+            for dx, dy in directions:
+                ni, nj = i + dx, j + dy
+                if 0 <= ni < n and 0 <= nj < m and grid[ni][nj] != -1 and (ni, nj):
+                    if grid[ni][nj]==0:
+                        backtrack(ni,nj,count+1)
+                    if grid[ni][nj]==2 and count==zeros:
+                        ans+=1
+                        
+            grid[i][j]=0   
+            return 
+
+        n = len(grid)
+        m = len(grid[0])
+        start_i = start_j = 0
+
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == 1:
+                    start_i = i
+                    start_j = j
+                elif grid[i][j] == 0:
+                    zeros += 1
+
+        backtrack(start_i, start_j, 0)
+        return ans
