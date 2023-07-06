@@ -6,24 +6,26 @@
 def graphColoring(graph, m, n):
     
     #your code here
-    def safe(nd,col,graph,n,c):
-        for k in range(n):
-            if k!=nd and graph[k][nd]==1 and col[k]==c:
-                return False
-        return True
-    def solve(nd,col,m,n,graph):
-        if nd==n:
+    def solve(node):
+        def safe(nd,i):
+            for k in range(n):
+                if k!=nd and graph[k][nd]==1 and col[k]==i:
+                    return False
+            return True
+        if node==n:
             return True
         for i in range(1,m+1):
-            if safe(nd,col,graph,n,i):
-                col[nd]=i
-                if solve(nd+1,col,m,n,graph):
+            if safe(node,i):
+                col[node]=i
+                if solve(node+1):
                     return True
-                col[nd]=0
+                col[node]=0
         return False
+                
     col=[0]*n
-    return solve(0,col,m,n,graph)
-    
+    if solve(0):
+        return 1
+    return 0
 
 
 #{ 
