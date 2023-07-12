@@ -24,11 +24,14 @@ class Solution:
             return dummy.next
         if not nums:
             return None
-        while len(nums)!=1:
-            fir=nums.pop()
-            sec=nums.pop()
-            nums.append(merge(fir,sec))
+        while len(nums)>1:
+            megels=[]
+            for i in range(0,len(nums),2):
+                fir=nums[i]
+                sec=nums[i+1] if (i+1)<len(nums) else None
+                
+                megels.append(merge(fir,sec))
+            nums=megels[::]
         return nums[0]
-            
             
                 
