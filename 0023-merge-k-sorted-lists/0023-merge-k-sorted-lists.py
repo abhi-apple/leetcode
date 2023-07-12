@@ -5,18 +5,30 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, nums: List[Optional[ListNode]]) -> Optional[ListNode]:
-        fin=[]
-        for i in nums:
-            while i:
-                fin.append(i.val)
-                i=i.next
-        fin.sort()
-        dum=ListNode(0)
-        prev=dum
-        for i in fin:
-            prev.next=ListNode(i)
-            prev=prev.next
-        return dum.next
+        def merge(l1,l2):
+            dummy = ListNode()
+            tail=dummy
+            while l1 and l2:
+                if l1.val<=l2.val:
+                    tail.next=l1
+                    l1=l1.next
+                else:
+                    tail.next=l2
+                    l2=l2.next
+
+                tail=tail.next
+            if l1:
+                tail.next=l1
+            if l2:
+                tail.next=l2
+            return dummy.next
+        if not nums:
+            return None
+        while len(nums)!=1:
+            fir=nums.pop()
+            sec=nums.pop()
+            nums.append(merge(fir,sec))
+        return nums[0]
             
             
                 
