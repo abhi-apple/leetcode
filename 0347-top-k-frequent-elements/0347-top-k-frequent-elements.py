@@ -6,8 +6,13 @@ class Solution:
                 dic[i]+=1
             else:
                 dic[i]=1
-        ans=sorted(dic, key=lambda x: dic[x])
-        ans=ans[::-1]
-        return ans[:k]
-        # for i in sorted(dic, key=lambda x: dic[x])[::-1]:
-        
+        from heapq import heappush, heappop
+        h=[]
+        for i in dic:
+            heapq.heappush(h,(dic[i],i))
+            if len(h)>k:
+                heapq.heappop(h)
+        res=[]
+        for _,i in h:
+            res.append(i)
+        return res
