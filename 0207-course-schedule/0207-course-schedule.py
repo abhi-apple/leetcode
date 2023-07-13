@@ -23,7 +23,6 @@ class Solution:
                 indegree[it]-=1
                 if indegree[it]==0:
                     que.append(it)
-        print(top)
         if top==numCourses:
             return True
         return False
