@@ -1,27 +1,28 @@
 class Solution:
-    def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        # using disjoint set
-        n = len(isConnected)
-        parent = [i for i in range(n)]
+    def findCircleNum(self, isc: List[List[int]]) -> int:
+        vis = set()
+        adj = {}
         
-        def find(i):
-            if parent[i] != i:
-                parent[i] = find(parent[i])
-            return parent[i]
-        
-        def union(i, j):
-            pi = find(i)
-            pj = find(j)
-            
-            if pi != pj:
-                parent[pj] = pi
+        for i in range(len(isc)):
+            for j in range(len(isc)):
+                if i != j and isc[i][j]==1:
+                    if i in adj:
+                        adj[i].append(j)
+                    else:
+                        adj[i] = [j]
+        # print(adj)
+        def dfs(node):
+            vis.add(node)
+            if node in adj:
                 
-        for i in range(n):
-            for j in range(n):
-                if i != j and isConnected[i][j]:
-                    union(i, j)
-        cnt=0
-        for i in range(n):
-            if parent[i]==i:
-                cnt+=1
+                for var in adj[node]:
+                    if var not in vis:
+                        dfs(var)
+
+        cnt = 0
+        for i in range(len(isc)):
+            if i not in vis:
+                dfs(i)
+                cnt += 1
+        
         return cnt
