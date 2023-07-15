@@ -1,23 +1,24 @@
 class Solution:
-    def findOrder(self, nums: int, p: List[List[int]]) -> List[int]:
-        adj={i:[] for i in range(nums)}
-        ind = [0] * nums
-        for i in p:
-            adj[i[1]].append(i[0])
-            ind[i[0]]+=1
-        que=deque()
-        for i in range(nums):
-            if ind[i]==0:
-                que.append(i)
-        top=[]
-        while que:
-            var=que.popleft()
-            top.append(var)
-            for i in adj[var]:
-                ind[i]-=1
-                if ind[i]==0:
-                    que.append(i)
-        if len(top)==nums:
-            return top
+    def findOrder(self, numc: int, pre: List[List[int]]) -> List[int]:
+        adj = [[] for _ in range(numc)]
+        indegree = [0] * numc
+
+        for it in pre:
+            adj[it[1]].append(it[0])
+            indegree[it[0]] += 1
+        stack=deque()
+        for i in range(numc):
+            if indegree[i]==0:
+                
+                stack.append(i)
+        cnt=[]
+        while stack:
+            node=stack.popleft()
+            cnt.append(node)
+            for var in adj[node]:
+                indegree[var]-=1
+                if indegree[var]==0:
+                    stack.append(var)
+        if len(cnt)==numc:
+            return cnt
         return []
-            
