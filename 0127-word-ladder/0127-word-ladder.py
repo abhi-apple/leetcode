@@ -1,39 +1,63 @@
 class Solution:
-    def ladderLength(self, beg: str, end: str, wrd: List[str]) -> int:
-        que=deque([beg])
-        cnt=0
-        let=len(beg)
-        wrd=set(wrd)
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        stack=deque()
+        word=list(beginWord)
+        stack.append(word)
         alp='abcdefghijklmnopqrstuvwxyz'
-        alp=list(alp)
-        while que:
-            n=len(que)
-            cnt+=1
-
+        wordList=set(wordList)
+        if len(beginWord)!=len(endWord) or endWord not in wordList:
+            return 0
+        cnt=0
+        while stack:
+            n=len(stack)
             for _ in range(n):
-                
-                var=que.popleft()
-                # print(var)
-                # print(wrd)
-                if var ==end:
-                    return cnt
-                # if not wrd:
-                #     return 0
-                var=list(var)
-                for k in range(let):
-                    test=var[:]
-                    
-                    
-                    for i in alp:
-                        test=list(test)
+                wrd=stack.popleft()
+                if ''.join(wrd)==endWord:
+                    return cnt+1
+                for i in range(len(wrd)):
+                    tmp=wrd[i]
+                    for k in alp:
                         
-                        test[k]=i
-                        test=''.join(test)
-                        if test in wrd:
-                            
-                            que.append(test)
-                            wrd.remove(test)
+                        wrd[i]=k
+                        new_word = ''.join(wrd)
+                        if new_word in wordList:
+                            stack.append(list(wrd))
+                            wordList.remove(new_word)
+                    wrd[i]=tmp
+            cnt+=1
         return 0
-        
-        
+
+    
+    
+# from collections import deque
+
+# class Solution:
+#     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+#         stack = deque()
+#         stack.append(list(beginWord))
+#         alp = 'abcdefghijklmnopqrstuvwxyz'
+#         wordList = set(wordList)
+#         if len(beginWord) != len(endWord) or endWord not in wordList:
+#             return 0
+#         cnt = 0
+#         while stack:
+#             n = len(stack)
+#             for _ in range(n):
+#                 wrd = stack.popleft()
+#                 if ''.join(wrd) == endWord:
+#                     return cnt + 1
+#                 for i in range(len(wrd)):
+#                     tmp = wrd[i]
+#                     for k in alp:
+#                         wrd[i] = k
+#                         new_word = ''.join(wrd)
+#                         if new_word in wordList:
+#                             stack.append(list(wrd))  # Add a copy of the word
+#                             wordList.remove(new_word)  # Remove the word from wordList
+#                     wrd[i] = tmp
+#             cnt += 1
+#         return 0
+
+                    
+                
             
