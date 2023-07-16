@@ -1,23 +1,28 @@
+from collections import deque
+from typing import List
+
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
-        nei = defaultdict(list)
-        for source, dest, price in flights:
-            nei[source].append([dest, price])
-        q = [[0,src,0]]
-        dis=[10**9 for i in range(n)]
-        dis[src]=0
-        while(q):
-            stp,nd,cst=q.pop(0)
-            if stp>k:
-                continue
-            for i in nei[nd]:
-                nod=i[0]
-                cos=i[1]
-                
-                if cst+cos<dis[nod] and stp<=k:
-                    dis[nod]=cst+cos
-                    q.append([stp+1,nod,cst+cos])
+        adj = defaultdict(list)
+        for st, des, pr in flights:
+            adj[st].append([des, pr])
         
-        if (dis[dst]==10**9):
+        dis = [float('inf')] * n
+        dis[src] = 0
+        
+        que = []
+        heapq.heappush(que,(0, src, 0))
+        
+        while que:
+            inte, cur, distance = heapq.heappop(que)
+            if inte > k:
+                continue
+            for nxt, val in adj[cur]:
+                if inte  <= k  and dis[nxt]>distance + val:
+                    dis[nxt] =  distance + val
+                    heapq.heappush(que,(inte + 1, nxt, dis[nxt]))
+        
+        if dis[dst] == float('inf'):
             return -1
+        
         return dis[dst]
