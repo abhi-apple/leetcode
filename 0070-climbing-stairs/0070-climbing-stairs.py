@@ -1,9 +1,13 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        pr0=1
-        pr1=1
-        for i in range(2,n+1):
-            cur=pr0+pr1
-            pr1=pr0
-            pr0=cur
-        return pr0
+        dp={}
+        def rec(i):
+            if i==0:
+                return 1
+            if i<0:
+                return 0
+            if i in dp:
+                return dp[i]
+            dp[i]=rec(i-1)+rec(i-2)
+            return dp[i]
+        return rec(n)
