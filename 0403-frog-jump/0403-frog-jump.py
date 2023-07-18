@@ -1,19 +1,19 @@
 class Solution:
     def canCross(self, stones: List[int]) -> bool:
-        n = stones[-1]
-        sets = set(stones)
-        if stones[1] != 1:
-            return False
-        
-        @cache
-        def rec(i, k):
-            if i == n:
+        dp={}
+        n=len(stones)
+        def rec(i,val):
+            if i==n-1:
                 return True
-            if i not in sets:
-                return False
-            for j in [k - 1, k, k + 1]:
-                if j > 0 and rec(i + j, j):
-                    return True
-            return False
-        
-        return rec(1, 1)
+            if (i,val) in dp:
+                return dp[(i,val)]
+            ans=False
+            for j in range(i+1,n):
+                diff=stones[j]-stones[i]
+                if val-1<=diff and val+1>=diff:
+                    if rec(j,diff):
+                        ans=True
+                        break
+            dp[(i,val)]=ans
+            return dp[(i,val)]
+        return rec(0,0)
