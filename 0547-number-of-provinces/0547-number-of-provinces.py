@@ -1,28 +1,31 @@
 class Solution:
     def findCircleNum(self, isc: List[List[int]]) -> int:
-        vis = set()
-        adj = {}
+        n=len(isc)
+        par=[i for i in range(n)]
+        size=[1 for _ in range(n)]
         
-        for i in range(len(isc)):
-            for j in range(len(isc)):
-                if i != j and isc[i][j]==1:
-                    if i in adj:
-                        adj[i].append(j)
-                    else:
-                        adj[i] = [j]
-        # print(adj)
-        def dfs(node):
-            vis.add(node)
-            if node in adj:
+        def find(i):
+            if par[i]==i:
+                return i
+            par[i]=find(par[i])
+            return par[i]
+        def union(i,j):
+            pi=find(i)
+            pj=find(j)
+            if pi!=pj:
+                if size[pi]<size[pj]:
+                    par[pi]=pj
+                    size[pj]+=size[pi]
+                else:
+                    par[pj]=pi
+                    size[pi]+=size[pj]
+        for i in range(n):
+            for j in range(n):
+                if i!=j and isc[i][j]:
+                    union(i,j)
+        cnt=0
+        for i in range(n):
+            if par[i]==i:
+                cnt+=1
                 
-                for var in adj[node]:
-                    if var not in vis:
-                        dfs(var)
-
-        cnt = 0
-        for i in range(len(isc)):
-            if i not in vis:
-                dfs(i)
-                cnt += 1
-        
         return cnt
