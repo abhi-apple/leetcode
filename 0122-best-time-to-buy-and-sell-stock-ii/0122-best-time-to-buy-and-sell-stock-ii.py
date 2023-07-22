@@ -1,7 +1,15 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        prof=0
-        for i in range(1,len(prices)):
-            if prices[i]>prices[i-1]:
-                prof+=(prices[i]-prices[i-1])
-        return prof
+        dp={}
+        n=len(prices)
+        def rec(i,prev):
+            if i==n:
+                return 0
+            if (i,prev) in dp:
+                return dp[(i,prev)]
+            if prev:
+                dp[(i,prev)]=max(rec(i+1,not prev)+prices[i],rec(i+1,prev))
+            else:
+                dp[(i,prev)]=max(rec(i+1,not prev)-prices[i],rec(i+1,prev))
+            return dp[(i,prev)]
+        return rec(0,False)
