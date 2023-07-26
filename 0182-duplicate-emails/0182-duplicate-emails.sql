@@ -1,2 +1,5 @@
 # Write your MySQL query statement below
-select email as Email from Person group by email having count(*)>1;
+SELECT distinct a.Email
+FROM Person a,Person b
+WHERE a.Id<>b.Id
+AND a.Email=b.Email
