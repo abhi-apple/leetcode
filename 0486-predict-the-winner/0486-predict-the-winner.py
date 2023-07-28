@@ -4,6 +4,8 @@ class Solution:
         def rec(i,j,trn):
             if i>j:
                 return 0
+            if (i,j,trn) in dp:
+                return dp[(i,j,trn)]
             dp[(i,j,trn)]=0
             if trn:
                 dp[(i,j,trn)]=max(rec(i+1,j,not trn)+nums[i],rec(i,j-1,not trn)+nums[j])
