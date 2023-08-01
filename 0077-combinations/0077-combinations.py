@@ -3,11 +3,11 @@ class Solution:
         res=[]
         def bk(st,cur):
             if len(cur)==k:
-                res.append(cur.copy())
+                res.append(cur)
                 return
             for i in range(st,n+1):
-                cur.append(i)
-                bk(i+1,cur)
-                cur.pop()
+              
+                bk(i+1,cur+[i])
+               
         bk(1,[])
         return res
