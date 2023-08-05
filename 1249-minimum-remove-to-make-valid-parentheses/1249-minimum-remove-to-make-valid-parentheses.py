@@ -11,7 +11,7 @@ class Solution:
                 else:
                     st.append(i)
         s=list(s)
-        print(st)
+        # print(st)
         for i in st:
             s[i]=''
         return ''.join(s)
