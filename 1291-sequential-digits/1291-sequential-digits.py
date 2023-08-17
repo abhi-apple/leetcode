@@ -1,30 +1,20 @@
+from collections import deque
+
 class Solution:
     def sequentialDigits(self, low: int, high: int) -> List[int]:
-        nums=[1,2,3,4,5,6,7,8,9]
-        n=len(str(low))
-        st=int(str(low)[0])
-        st=st-1
-        ans=[]
-        while st+n<10:
-            now=''
-            for i in nums[st:st+n]:
-                now=now+str(i)
-            if int(now)<=high and int(now)>=low:
-                ans.append(int(now))
-            st+=1
-        if len(str(low))!=len(str(high)):
-            k=len(str(low))
-            while k<=len(str(high)):
-                k=k+1
-                st=0
-                # k=len(str(high))
-                while st+k<10:
-                    now=''
-                    for i in nums[st:st+k]:
-                        now=now+str(i)
-                    if int(now)<=high:
-                        ans.append(int(now))
-                    st+=1
-        return ans
-            
-            
+        queue = deque()
+        for i in range(1, 10):
+            queue.append(str(i))
+        
+        result = []
+        while queue:
+            curr_str = queue.popleft()
+            curr_num = int(curr_str)
+            if curr_num <= high:
+                if curr_num >= low:
+                    result.append(curr_num)
+                last_digit = int(curr_str[-1])
+                if last_digit < 9:
+                    queue.append(curr_str + str(last_digit + 1))
+        
+        return result
