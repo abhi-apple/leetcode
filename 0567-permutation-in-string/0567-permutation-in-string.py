@@ -1,17 +1,9 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
         l1=list(s1)
-        
-        l1.sort()
-        
         l2=list(s2)
-        
-        
-        
         j=len(l1)-1
-        
         dicl1={}
-        
         for i in l1:
             if i in dicl1:
                 dicl1[i]+=1
