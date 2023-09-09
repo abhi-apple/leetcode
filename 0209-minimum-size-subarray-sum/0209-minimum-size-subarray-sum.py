@@ -30,15 +30,6 @@ class Solution:
                     
                     sums += nums[j]
                 j += 1
-#                 if j < n - 1:
-                 
-#                     j += 1
-                    
-#                     print(j,sums)
-#                 else:
-                    
-#                     print('hi')
-#                     break
         return maxi
 
                 
