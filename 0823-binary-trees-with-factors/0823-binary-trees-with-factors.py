@@ -18,7 +18,3 @@ class Solution:
             # print(dic)
             # main=(main+cnt)%(10**9 +7)
         return sum(dic.values())%(10**9 +7)
-                    
-                    
-            
-        
