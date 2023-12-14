@@ -21,5 +21,3 @@ class Solution:
                 res[i][j]=(x1[i]+y1[j])-((n-x1[i])+(m-y1[j]))
         return res
         
-                    
-            
