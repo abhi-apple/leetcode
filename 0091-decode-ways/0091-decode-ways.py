@@ -17,13 +17,3 @@ class Solution:
             return ans
         return rec(0)
         
-        
-        
-#def dfs(i):
-        #     if i in dp:
-        #         return dp[i]
-        #     if s[i]=='0':
-        #         return 0
-                
-                
-            
